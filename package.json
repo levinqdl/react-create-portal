@@ -1,0 +1,7 @@
+{
+  "name": "react-portal-layout",
+  "version": "0.1.0",
+  "description": "layout library inspired by react portal",
+  "main": "index.js",
+  "license": "MIT"
+}
