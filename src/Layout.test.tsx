@@ -4,8 +4,11 @@ import { render } from "react-testing-library"
 
 describe('Layout', () => {
   it("renders full viewport", () => {
-    const { getByTestId } = render(<Layout />)
-    const layout = getByTestId("layout")
-    expect(layout.style).toMatchObject({ width: "100vw", height: "100vh" })
+    const { container, getByText } = render(<Layout><div>Hello Portal Layout!</div></Layout>)
+    getByText("Hello Portal Layout!")
+    const layout = container.firstChild
+    expect(layout).toHaveStyleRule('width', '100vw')
+    expect(layout).toHaveStyleRule('height', '100vh')
+    expect(layout).toMatchSnapshot()
   })
 })

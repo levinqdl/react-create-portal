@@ -1,7 +1,8 @@
-import React from 'react'
+import styled from "react-emotion"
 
-const Layout = () => (
-  <div data-testid="layout" style={{ width: "100vw", height: "100vh" }}>Layout</div>
-)
+const Layout = styled('div')`
+  width: 100vw;
+  height: 100vh;
+`
 
 export default Layout

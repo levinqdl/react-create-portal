@@ -2,16 +2,17 @@
   "name": "react-portal-layout",
   "version": "0.1.0",
   "description": "layout library inspired by react portal",
-  "main": "index.js",
+  "main": "src/index.tsx",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^23.3.5",
     "@types/react": "^16.4.18",
     "jest": "^23.6.0",
+    "jest-emotion": "^9.2.11",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-testing-library": "^5.2.3",
-    "rollup": "^0.66.6",
+    "rollup": "^0.67.0",
     "rollup-plugin-typescript": "^1.0.0",
     "ts-jest": "^23.10.4",
     "tslib": "^1.9.3",
@@ -24,5 +25,9 @@
   "peerDependencies": {
     "react": "*",
     "react-dom": "*"
+  },
+  "dependencies": {
+    "emotion": "^9.2.12",
+    "react-emotion": "^9.2.12"
   }
 }
