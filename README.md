@@ -27,6 +27,7 @@ Not Available Yet
 - [x] static type
 - [x] test
 - [x] Layout component
+- [x] CI
 - [ ] Breadcrumb component
 - [ ] docs
 - [ ] examples
