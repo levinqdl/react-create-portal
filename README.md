@@ -21,16 +21,14 @@ Not Available Yet
 
 ## Examples
 
-## Roadmap
+## Todos
 
-- [ ] bundler
-- [ ] static type
-- [ ] test
-- [ ] Layout component
-- [ ] Header component
-- [ ] Footer component
-- [ ] Sidebar component
+- [x] bundler
+- [x] static type
+- [x] test
+- [x] Layout component
 - [ ] Breadcrumb component
+- [ ] docs
 - [ ] examples
 - [ ] publish
 

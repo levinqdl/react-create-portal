@@ -1,14 +1,21 @@
 import React from "react"
-import { element } from "prop-types"
 
-export interface ISlotContext {
-  slots: {
-    [key: string]: HTMLDivElement
-  }
-  addSlot: (element: HTMLDivElement) => string
+interface SlotElements {
+  [key: string]: HTMLElement
 }
 
+export interface ISlotContext {
+  slots: SlotElements
+  addSlot: (element: HTMLElement) => string
+}
+
+const defaultKey = "body"
+const slots: SlotElements = {}
+
 export default React.createContext<ISlotContext>({
-  slots: {},
-  addSlot: element => "",
+  slots,
+  addSlot: element => {
+    slots[defaultKey] = element
+    return defaultKey
+  },
 })
