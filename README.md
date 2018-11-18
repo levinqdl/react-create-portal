@@ -17,7 +17,6 @@ Not Available Yet
 
 - New React Context API
 - React Portal
-- React Router v4
 
 ## Examples
 
