@@ -1,10 +1,14 @@
-import React from 'react'
-import Layout from './Layout'
+import React from "react"
+import Layout from "./Layout"
 import { render } from "react-testing-library"
 
-describe('Layout', () => {
+describe("Layout", () => {
   it("renders full viewport", () => {
-    const { container, getByText } = render(<Layout className="layout" style={{ color: "red" }}><div>Hello Portal Layout!</div></Layout>)
+    const { container, getByText } = render(
+      <Layout className="layout" style={{ color: "red" }}>
+        <div>Hello Portal Layout!</div>
+      </Layout>
+    )
     getByText("Hello Portal Layout!")
     const layout = container.firstChild as HTMLElement
     expect(layout.classList.contains("layout")).toBeTruthy()

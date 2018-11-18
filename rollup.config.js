@@ -1,14 +1,12 @@
-import typescript from 'rollup-plugin-typescript'
+import typescript from "rollup-plugin-typescript"
 
 module.exports = {
-  input: 'src/index.tsx',
+  input: "src/index.tsx",
   output: {
-    dir: 'build',
-    file: 'bundle.js',
-    format: 'cjs',
+    dir: "build",
+    file: "bundle.js",
+    format: "cjs",
   },
-  plugins: [
-    typescript(),
-  ],
-  external: ["react", "react-dom", "react-emotion"]
+  plugins: [typescript()],
+  external: ["react", "react-dom", "react-emotion"],
 }

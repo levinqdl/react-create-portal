@@ -1,5 +1,5 @@
-import React, { CSSProperties } from 'react'
-import SlotContext, { ISlotContext } from './SlotContext'
+import React, { CSSProperties } from "react"
+import SlotContext, { ISlotContext } from "./SlotContext"
 
 interface Props {
   className?: string
@@ -13,8 +13,8 @@ class Layout extends React.Component<Props, ISlotContext> {
     this.setState(({ slots }) => ({
       slots: {
         ...slots,
-        [key]: element
-      }
+        [key]: element,
+      },
     }))
     return key
   }
@@ -26,10 +26,9 @@ class Layout extends React.Component<Props, ISlotContext> {
     const { children, className, style } = this.props
     return (
       <SlotContext.Provider value={this.state}>
-        <div
-          style={style}
-          className={className}
-        >{children}</div>
+        <div style={style} className={className}>
+          {children}
+        </div>
       </SlotContext.Provider>
     )
   }

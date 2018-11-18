@@ -1,5 +1,5 @@
-import React from 'react'
-import { element } from 'prop-types';
+import React from "react"
+import { element } from "prop-types"
 
 export interface ISlotContext {
   slots: {
@@ -10,5 +10,5 @@ export interface ISlotContext {
 
 export default React.createContext<ISlotContext>({
   slots: {},
-  addSlot: element => ""
+  addSlot: element => "",
 })

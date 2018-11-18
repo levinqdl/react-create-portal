@@ -7,11 +7,7 @@
     "target": "es5",
     "jsx": "react",
     "esModuleInterop": true,
-    "types": [
-      "jest-emotion"
-    ]
+    "types": ["jest-emotion"]
   },
-  "include": [
-    "./src/**/*"
-  ]
+  "include": ["./src/**/*"]
 }

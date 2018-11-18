@@ -1,6 +1,12 @@
-import React, { createRef, RefObject, SFC, ComponentClass, CSSProperties } from 'react'
-import ReactDOM from 'react-dom'
-import SlotContext from './SlotContext';
+import React, {
+  createRef,
+  RefObject,
+  SFC,
+  ComponentClass,
+  CSSProperties,
+} from "react"
+import ReactDOM from "react-dom"
+import SlotContext from "./SlotContext"
 
 type ISlotRender = SFC<{}>
 
@@ -11,7 +17,7 @@ interface SlotProps {
 
 type ISlot = ComponentClass<SlotProps>
 
-const createPortal: () => { Slot: ISlot, Render: ISlotRender } = () => {
+const createPortal: () => { Slot: ISlot; Render: ISlotRender } = () => {
   let key: string
 
   class Slot extends React.Component {
@@ -22,9 +28,7 @@ const createPortal: () => { Slot: ISlot, Render: ISlotRender } = () => {
       key = this.context.addSlot(this.elem.current)
     }
     render() {
-      return (
-        <div ref={this.elem} {...this.props} />
-      )
+      return <div ref={this.elem} {...this.props} />
     }
   }
 
