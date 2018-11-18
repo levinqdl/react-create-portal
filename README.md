@@ -1,33 +1,66 @@
 # React Portal Gun [![Build Status](https://travis-ci.org/levinqdl/react-portal-gun.svg?branch=master)](https://travis-ci.org/levinqdl/react-portal-gun)
 
-Layout library inspired by react portal, possible make your life easier.
+Render elements through a Portal, give you more control over your UI, e.g. rendering a button into footer inside your deeply nested component
 
-## Features
+## Principles
 
 - Declarative
 - Start quickly
-- Control UI in other parts, like put a button in footer in your deeply nested component
+- Reasonable
 - Test friendly
-
-## Get Started
-
-Not Available Yet
 
 ## Prerequisites
 
 - New React Context API
-- React Portal
+- ReactDOM Portal
+
+## Get Started
+
+```bash
+npm install react-portal-gun
+```
+
+or
+
+```bash
+yarn add react-portal-gun
+```
 
 ## Examples
+
+```javascript
+// App.js
+import React from "react"
+import { PortalProvider, createPortal } from "react-portal-gun"
+
+const {
+  Slot, // place Slot at where elements render
+  Render, // Render's children will be portaled into Slot
+} = createPortal()
+
+const App = () => (
+  <PortalProvider>
+    <div>
+      Hello <Slot />!
+    </div>
+    <Render>World</Render>
+  </PortalProvider>
+)
+
+/** output dom
+ * <div>Hello World!</div> // World renders between "Hello" and "!"
+ */
+```
 
 ## Todos
 
 - [x] bundler
 - [x] static type
 - [x] test
-- [x] Layout component
+- [x] PortalProvider
+- [x] createPortal
 - [x] CI
-- [ ] Breadcrumb component
+- [ ] Breadcrumbs
 - [ ] docs
-- [ ] examples
+- [x] examples
 - [ ] publish
