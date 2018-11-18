@@ -1,4 +1,4 @@
-# React Portal Gun
+# React Portal Gun [![Build Status](https://travis-ci.org/levinqdl/react-portal-gun.svg?branch=master)](https://travis-ci.org/levinqdl/react-portal-gun)
 
 Layout library inspired by react portal, possible make your life easier.
 
