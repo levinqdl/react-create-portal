@@ -2,15 +2,13 @@
 
 exports[`Slot reveive style & className 1`] = `
 <div>
-  <div>
-    Slot Container
-     
-    <div
-      class="slot"
-      style="display: inline;"
-    >
-      Styled
-    </div>
+  Slot Container
+   
+  <div
+    class="slot"
+    style="display: inline;"
+  >
+    Styled
   </div>
 </div>
 `;

@@ -1,4 +1,4 @@
-# React Portal Layout
+# React Portal Gun
 
 Layout library inspired by react portal, possible make your life easier.
 
@@ -31,5 +31,3 @@ Not Available Yet
 - [ ] docs
 - [ ] examples
 - [ ] publish
-
-

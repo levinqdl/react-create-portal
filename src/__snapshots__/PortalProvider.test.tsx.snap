@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PortalProvider renders children 1`] = `
+<div>
+  Hello Portal Layout!
+</div>
+`;

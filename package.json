@@ -1,5 +1,5 @@
 {
-  "name": "react-portal-layout",
+  "name": "react-portal-gun",
   "version": "0.1.0",
   "description": "layout library inspired by react portal",
   "main": "src/index.tsx",
@@ -48,7 +48,8 @@
     ],
     "*.{ts,tsx}": [
       "tslint --fix",
-      "git add"
+      "git add",
+      "jest --bail --findRelatedTests"
     ]
   }
 }

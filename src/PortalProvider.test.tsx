@@ -1,18 +1,16 @@
 import React from "react"
-import Layout from "./Layout"
+import PortalProvider from "./PortalProvider"
 import { render } from "react-testing-library"
 
-describe("Layout", () => {
-  it("renders full viewport", () => {
+describe("PortalProvider", () => {
+  it("renders children", () => {
     const { container, getByText } = render(
-      <Layout className="layout" style={{ color: "red" }}>
+      <PortalProvider>
         <div>Hello Portal Layout!</div>
-      </Layout>
+      </PortalProvider>
     )
     getByText("Hello Portal Layout!")
     const layout = container.firstChild as HTMLElement
-    expect(layout.classList.contains("layout")).toBeTruthy()
-    expect(layout.style).toMatchObject({ color: "red" })
     expect(layout).toMatchSnapshot()
   })
 })
