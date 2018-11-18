@@ -1,5 +1,4 @@
 import React, { CSSProperties } from 'react'
-import { cx, css } from "react-emotion"
 import SlotContext, { ISlotContext } from './SlotContext'
 
 interface Props {
@@ -29,10 +28,7 @@ class Layout extends React.Component<Props, ISlotContext> {
       <SlotContext.Provider value={this.state}>
         <div
           style={style}
-          className={cx(css`
-        width: 100vw;
-        height: 100vh;
-      `, className)}
+          className={className}
         >{children}</div>
       </SlotContext.Provider>
     )

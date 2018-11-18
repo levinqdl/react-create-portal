@@ -8,8 +8,6 @@ describe('Layout', () => {
     getByText("Hello Portal Layout!")
     const layout = container.firstChild as HTMLElement
     expect(layout.classList.contains("layout")).toBeTruthy()
-    expect(layout).toHaveStyleRule('width', '100vw')
-    expect(layout).toHaveStyleRule('height', '100vh')
     expect(layout.style).toMatchObject({ color: "red" })
     expect(layout).toMatchSnapshot()
   })
