@@ -1,4 +1,7 @@
-# React Create Portal [![Build Status](https://travis-ci.org/levinqdl/react-aperture.svg?branch=master)](https://travis-ci.org/levinqdl/react-aperture)
+# React Create Portal
+
+[![Build Status](https://travis-ci.org/levinqdl/react-aperture.svg?branch=master)](https://travis-ci.org/levinqdl/react-aperture)
+[![npm version](https://badge.fury.io/js/react-create-portal.svg)](https://badge.fury.io/js/react-create-portal)
 
 Render elements through a Portal, give you more control over your UI, e.g. rendering a button into footer inside your deeply nested component
 
