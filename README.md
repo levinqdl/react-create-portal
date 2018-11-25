@@ -1,4 +1,4 @@
-# React Portal Gun [![Build Status](https://travis-ci.org/levinqdl/react-portal-gun.svg?branch=master)](https://travis-ci.org/levinqdl/react-portal-gun)
+# React Create Portal [![Build Status](https://travis-ci.org/levinqdl/react-aperture.svg?branch=master)](https://travis-ci.org/levinqdl/react-aperture)
 
 Render elements through a Portal, give you more control over your UI, e.g. rendering a button into footer inside your deeply nested component
 
@@ -17,13 +17,13 @@ Render elements through a Portal, give you more control over your UI, e.g. rende
 ## Get Started
 
 ```bash
-npm install react-portal-gun
+npm install react-create-portal
 ```
 
 or
 
 ```bash
-yarn add react-portal-gun
+yarn add react-create-portal
 ```
 
 ## Examples
@@ -31,7 +31,7 @@ yarn add react-portal-gun
 ```javascript
 // App.js
 import React from "react"
-import { PortalProvider, createPortal } from "react-portal-gun"
+import { PortalProvider, createPortal } from "react-create-portal"
 
 const {
   Slot, // place Slot at where elements render
