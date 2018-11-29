@@ -1,6 +1,6 @@
 # React Create Portal
 
-[![Build Status](https://travis-ci.org/levinqdl/react-aperture.svg?branch=master)](https://travis-ci.org/levinqdl/react-aperture)
+[![Build Status](https://travis-ci.org/levinqdl/react-create-portal.svg?branch=master)](https://travis-ci.org/levinqdl/react-create-portal)
 [![npm version](https://badge.fury.io/js/react-create-portal.svg)](https://badge.fury.io/js/react-create-portal)
 ![coverage](./coverage/badge.svg)
 
