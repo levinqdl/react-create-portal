@@ -17,7 +17,7 @@ interface SlotProps {
 
 type ISlot = ComponentClass<SlotProps>
 
-const createPortal: () => { Slot: ISlot; Render: ISlotRender } = () => {
+const createPortal: () => [ISlot, ISlotRender] = () => {
   let key: string
 
   class Slot extends React.Component {
@@ -40,7 +40,7 @@ const createPortal: () => { Slot: ISlot; Render: ISlotRender } = () => {
       }}
     </SlotContext.Consumer>
   )
-  return { Slot, Render: SlotRender }
+  return [Slot, SlotRender]
 }
 
 export default createPortal

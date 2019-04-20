@@ -37,10 +37,10 @@ yarn add react-create-portal
 import React from "react"
 import { PortalProvider, createPortal } from "react-create-portal"
 
-const {
+const [
   Slot, // place Slot at where elements render
   Render, // Render's children will be portaled into Slot
-} = createPortal()
+] = createPortal()
 
 const App = () => (
   <PortalProvider>

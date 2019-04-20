@@ -5,27 +5,26 @@ import createPortal from "./createPortal"
 
 describe("Slot", () => {
   it("renders a portal", () => {
-    const Portal = createPortal()
+    const [Slot, Render] = createPortal()
     const { getByText } = render(
       <PortalProvider>
         <div>
-          Awesome <Portal.Slot />
+          Awesome <Slot />
         </div>
-        <Portal.Render>Portal Layout</Portal.Render>
+        <Render>Portal Layout</Render>
       </PortalProvider>
     )
     const slotContainer = getByText("Awesome")
     within(slotContainer).getByText("Portal Layout")
   })
   it("reveive style & className", () => {
-    const Portal = createPortal()
+    const [Slot, Render] = createPortal()
     const { getByText, container } = render(
       <PortalProvider>
         <div>
-          Slot Container{" "}
-          <Portal.Slot className="slot" style={{ display: "inline" }} />
+          Slot Container <Slot className="slot" style={{ display: "inline" }} />
         </div>
-        <Portal.Render>Styled</Portal.Render>
+        <Render>Styled</Render>
       </PortalProvider>
     )
     const slot = getByText("Styled")
