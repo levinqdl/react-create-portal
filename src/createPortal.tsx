@@ -1,9 +1,11 @@
 import React, {
-  createRef,
-  RefObject,
-  SFC,
-  ComponentClass,
   CSSProperties,
+  SFC,
+  useContext,
+  useRef,
+  useLayoutEffect,
+  useEffect,
+  MutableRefObject,
 } from "react"
 import ReactDOM from "react-dom"
 import SlotContext from "./SlotContext"
@@ -13,30 +15,40 @@ type ISlotRender = SFC<{}>
 interface SlotProps {
   className?: string
   style?: CSSProperties
+  payload?: any
 }
 
-type ISlot = ComponentClass<SlotProps>
+type ISlot = SFC<SlotProps>
 
 const createPortal: () => [ISlot, ISlotRender] = () => {
   let key: string
+  let payloadRef: MutableRefObject<any>
 
-  class Slot extends React.Component {
-    static contextType = SlotContext
-    context: any
-    elem: RefObject<HTMLDivElement> = createRef()
-    componentDidMount() {
-      key = this.context.addSlot(this.elem.current)
-    }
-    render() {
-      return <div ref={this.elem} {...this.props} />
-    }
+  const Slot = ({ payload, ...props }: SlotProps) => {
+    const elem = useRef(null)
+    payloadRef = useRef(payload)
+    const { registerSlot: addSlot } = useContext(SlotContext)
+    useLayoutEffect(() => {
+      key = addSlot(elem.current)
+    }, [])
+    useEffect(() => {
+      payloadRef.current = payload
+    })
+    return <div ref={elem} {...props} />
   }
 
   const SlotRender: ISlotRender = ({ children }) => (
     <SlotContext.Consumer>
       {({ slots }) => {
         const elem = slots[key]
-        return elem ? ReactDOM.createPortal(children, elem) : null
+        return elem
+          ? ReactDOM.createPortal(
+              typeof children === "function"
+                ? children(payloadRef.current)
+                : children,
+              elem
+            )
+          : null
       }}
     </SlotContext.Consumer>
   )

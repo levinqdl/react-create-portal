@@ -1,5 +1,5 @@
 import React from "react"
-import { render, within } from "react-testing-library"
+import { render, within } from "@testing-library/react"
 import PortalProvider from "./PortalProvider"
 import createPortal from "./createPortal"
 
@@ -31,5 +31,18 @@ describe("Slot", () => {
     expect(slot.classList.contains("slot")).toBeTruthy()
     expect(slot.style).toMatchObject({ display: "inline" })
     expect(container.firstChild).toMatchSnapshot()
+  })
+  test("pass data from Slot to Render", () => {
+    const [Slot, Render] = createPortal()
+    const { getByText } = render(
+      <PortalProvider>
+        <div>
+          Awesome <Slot payload={"payload"} />
+        </div>
+        <Render>{(payload: any) => <>Portal Layout {payload}</>}</Render>
+      </PortalProvider>
+    )
+    const slotContainer = getByText("Awesome")
+    within(slotContainer).getByText("Portal Layout payload")
   })
 })

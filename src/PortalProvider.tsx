@@ -5,7 +5,7 @@ const { Provider } = SlotContext
 
 class PortalProvider extends React.Component<{}, ISlotContext> {
   counter: number = 0
-  addSlot = (element: HTMLDivElement) => {
+  registerSlot = (element: HTMLDivElement) => {
     const key = `s${this.counter++}`
     this.setState(({ slots }) => ({
       slots: {
@@ -17,7 +17,7 @@ class PortalProvider extends React.Component<{}, ISlotContext> {
   }
   state: ISlotContext = {
     slots: {},
-    addSlot: this.addSlot,
+    registerSlot: this.registerSlot,
   }
   render() {
     const { children } = this.props

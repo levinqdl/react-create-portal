@@ -1,6 +1,6 @@
 import React from "react"
 import PortalProvider from "./PortalProvider"
-import { render } from "react-testing-library"
+import { render } from "@testing-library/react"
 
 describe("PortalProvider", () => {
   it("renders children", () => {

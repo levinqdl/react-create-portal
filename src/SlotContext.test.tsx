@@ -1,7 +1,7 @@
 import React, { createRef, RefObject } from "react"
 import ReactDOM from "react-dom"
 import SlotContext from "./SlotContext"
-import { render, within, waitForElement } from "react-testing-library"
+import { render, within, waitForElement } from "@testing-library/react"
 
 const { Consumer } = SlotContext
 
@@ -10,7 +10,7 @@ class Slot extends React.Component {
   context: any
   elem: RefObject<HTMLDivElement> = createRef()
   componentDidMount() {
-    this.context.addSlot(this.elem.current)
+    this.context.registerSlot(this.elem.current)
   }
   render() {
     return <div ref={this.elem} {...this.props} data-testid="slot" />

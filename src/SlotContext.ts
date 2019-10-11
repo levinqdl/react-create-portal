@@ -6,7 +6,7 @@ interface SlotElements {
 
 export interface ISlotContext {
   slots: SlotElements
-  addSlot: (element: HTMLElement) => string
+  registerSlot: (element: HTMLElement) => string
 }
 
 const defaultKey = "body"
@@ -14,7 +14,7 @@ const slots: SlotElements = {}
 
 export default React.createContext<ISlotContext>({
   slots,
-  addSlot: element => {
+  registerSlot: element => {
     slots[defaultKey] = element
     return defaultKey
   },
