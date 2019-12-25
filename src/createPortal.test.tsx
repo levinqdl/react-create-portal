@@ -37,9 +37,9 @@ describe("Slot", () => {
     const { getByText } = render(
       <PortalProvider>
         <div>
-          Awesome <Slot payload={"payload"} />
+          Awesome <Slot payload={{ data: "payload" }} />
         </div>
-        <Render>{(payload: any) => <>Portal Layout {payload}</>}</Render>
+        <Render>{(payload: any) => <>Portal Layout {payload.data}</>}</Render>
       </PortalProvider>
     )
     const slotContainer = getByText("Awesome")

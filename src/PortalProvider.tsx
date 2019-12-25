@@ -10,14 +10,26 @@ class PortalProvider extends React.Component<{}, ISlotContext> {
     this.setState(({ slots }) => ({
       slots: {
         ...slots,
-        [key]: element,
+        [key]: { element, payload: null },
       },
     }))
     return key
   }
+  setPayload = (key: string, payload: any) => {
+    this.setState(({ slots }) => {
+      const slot = slots[key]
+      return {
+        slots: {
+          ...slots,
+          [key]: { ...slot, payload },
+        },
+      }
+    })
+  }
   state: ISlotContext = {
     slots: {},
     registerSlot: this.registerSlot,
+    setPayload: this.setPayload,
   }
   render() {
     const { children } = this.props

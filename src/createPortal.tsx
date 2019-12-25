@@ -5,7 +5,6 @@ import React, {
   useRef,
   useLayoutEffect,
   useEffect,
-  MutableRefObject,
 } from "react"
 import ReactDOM from "react-dom"
 import SlotContext from "./SlotContext"
@@ -22,30 +21,26 @@ type ISlot = SFC<SlotProps>
 
 const createPortal: () => [ISlot, ISlotRender] = () => {
   let key: string
-  let payloadRef: MutableRefObject<any>
 
   const Slot = ({ payload, ...props }: SlotProps) => {
     const elem = useRef(null)
-    payloadRef = useRef(payload)
-    const { registerSlot: addSlot } = useContext(SlotContext)
+    const { registerSlot: addSlot, setPayload } = useContext(SlotContext)
     useLayoutEffect(() => {
       key = addSlot(elem.current)
     }, [])
     useEffect(() => {
-      payloadRef.current = payload
-    })
+      setPayload(key, payload)
+    }, [payload])
     return <div ref={elem} {...props} />
   }
 
   const SlotRender: ISlotRender = ({ children }) => (
     <SlotContext.Consumer>
       {({ slots }) => {
-        const elem = slots[key]
+        const { element: elem, payload } = slots[key] || {}
         return elem
           ? ReactDOM.createPortal(
-              typeof children === "function"
-                ? children(payloadRef.current)
-                : children,
+              typeof children === "function" ? children(payload) : children,
               elem
             )
           : null

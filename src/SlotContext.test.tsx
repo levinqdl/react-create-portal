@@ -23,13 +23,15 @@ describe("SlotContext", () => {
       <>
         <Slot />
         <Consumer>
-          {({ slots: { body } }) =>
-            body && ReactDOM.createPortal(<div>hello</div>, body)
-          }
+          {({
+            slots: {
+              body: { element },
+            },
+          }) => element && ReactDOM.createPortal(<div>hello</div>, element)}
         </Consumer>
       </>
     )
-    const { container, debug, getByTestId, rerender } = render(<Container />)
+    const { container, getByTestId, rerender } = render(<Container />)
     rerender(<Container />)
     await waitForElement(() => within(getByTestId("slot")).getByText("hello"))
     expect(container)
