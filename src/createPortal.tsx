@@ -40,7 +40,9 @@ const createPortal: () => [ISlot, ISlotRender] = () => {
       }
     })
     return (
-      (key && slots[key].renders > 0 && <div ref={container} {...props} />) ||
+      (key && slots[key] && slots[key].renders && (
+        <div ref={container} {...props} />
+      )) ||
       null
     )
   }

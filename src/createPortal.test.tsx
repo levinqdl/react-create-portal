@@ -46,8 +46,8 @@ describe("Slot", () => {
     within(slotContainer).getByText("Portal Layout payload")
   })
   it("hides Slot if no Render", () => {
-    const [Slot, Render] = createPortal()
-    const { getByText } = render(
+    const [Slot] = createPortal()
+    render(
       <PortalProvider>
         <div>
           Awesome <Slot id="slot" />
@@ -55,5 +55,32 @@ describe("Slot", () => {
       </PortalProvider>
     )
     expect(document.querySelector("#slot")).toBeNull()
+  })
+  test("Provider remount", () => {
+    const [Slot, Render] = createPortal()
+    const Container = ({ slotKey }: { slotKey: boolean }) =>
+      slotKey ? (
+        <PortalProvider>
+          <div>
+            Awesome <Slot />
+          </div>
+          <Render>Portal Layout</Render>
+        </PortalProvider>
+      ) : (
+        <div>
+          <PortalProvider>
+            <div>
+              Awesome <Slot />
+            </div>
+            <Render>Portal Layout</Render>
+          </PortalProvider>
+        </div>
+      )
+    const { getByText, rerender } = render(<Container slotKey={true} />)
+    let slotContainer = getByText("Awesome")
+    within(slotContainer).getByText("Portal Layout")
+    rerender(<Container slotKey={false} />)
+    slotContainer = getByText("Awesome")
+    within(slotContainer).getByText("Portal Layout")
   })
 })
