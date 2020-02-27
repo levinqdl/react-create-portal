@@ -11,9 +11,10 @@ import SlotContext from "./SlotContext"
 
 type ISlotRender = SFC<{}>
 
-interface SlotProps {
-  className?: string
-  style?: CSSProperties
+type SlotProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> & {
   payload?: any
 }
 
@@ -24,29 +25,43 @@ const createPortal: () => [ISlot, ISlotRender] = () => {
 
   const Slot = ({ payload, ...props }: SlotProps) => {
     const elem = useRef(null)
-    const { registerSlot: addSlot, setPayload } = useContext(SlotContext)
+    const container = useRef(null)
+    const { registerSlot: addSlot, setPayload, slots } = useContext(SlotContext)
     useLayoutEffect(() => {
+      elem.current = document.createElement("div")
       key = addSlot(elem.current)
     }, [])
     useEffect(() => {
       setPayload(key, payload)
     }, [payload])
-    return <div ref={elem} {...props} />
+    useLayoutEffect(() => {
+      if (container.current && elem.current) {
+        container.current.appendChild(elem.current)
+      }
+    })
+    return (
+      (key && slots[key].renders > 0 && <div ref={container} {...props} />) ||
+      null
+    )
   }
 
-  const SlotRender: ISlotRender = ({ children }) => (
-    <SlotContext.Consumer>
-      {({ slots }) => {
-        const { element: elem, payload } = slots[key] || {}
-        return elem
-          ? ReactDOM.createPortal(
-              typeof children === "function" ? children(payload) : children,
-              elem
-            )
-          : null
-      }}
-    </SlotContext.Consumer>
-  )
+  const SlotRender: ISlotRender = ({ children }) => {
+    const { slots, registerRender } = useContext(SlotContext)
+    useEffect(() => registerRender(key), [])
+    return (
+      <SlotContext.Consumer>
+        {({ slots }) => {
+          const { element: elem, payload } = slots[key] || {}
+          return elem
+            ? ReactDOM.createPortal(
+                typeof children === "function" ? children(payload) : children,
+                elem
+              )
+            : null
+        }}
+      </SlotContext.Consumer>
+    )
+  }
   return [Slot, SlotRender]
 }
 

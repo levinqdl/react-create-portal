@@ -10,10 +10,32 @@ class PortalProvider extends React.Component<{}, ISlotContext> {
     this.setState(({ slots }) => ({
       slots: {
         ...slots,
-        [key]: { element, payload: null },
+        [key]: { element, payload: null, renders: 0 },
       },
     }))
     return key
+  }
+  registerRender = (key: string) => {
+    this.setState(({ slots }) => {
+      const slot = slots[key]
+      return {
+        slots: {
+          ...slots,
+          [key]: { ...slot, renders: slot.renders + 1 },
+        },
+      }
+    })
+    return () => {
+      this.setState(({ slots }) => {
+        const slot = slots[key]
+        return {
+          slots: {
+            ...slots,
+            [key]: { ...slot, renders: slot.renders - 1 },
+          },
+        }
+      })
+    }
   }
   setPayload = (key: string, payload: any) => {
     this.setState(({ slots }) => {
@@ -30,6 +52,7 @@ class PortalProvider extends React.Component<{}, ISlotContext> {
     slots: {},
     registerSlot: this.registerSlot,
     setPayload: this.setPayload,
+    registerRender: this.registerRender,
   }
   render() {
     const { children } = this.props
