@@ -27,7 +27,7 @@ describe("Slot", () => {
         <Render>Styled</Render>
       </PortalProvider>
     )
-    const slot = getByText("Styled").parentElement
+    const slot = getByText("Styled")
     expect(slot.classList.contains("slot")).toBeTruthy()
     expect(slot.style).toMatchObject({ display: "inline" })
     expect(container.firstChild).toMatchSnapshot()
@@ -46,15 +46,24 @@ describe("Slot", () => {
     within(slotContainer).getByText("Portal Layout payload")
   })
   it("hides Slot if no Render", () => {
-    const [Slot] = createPortal()
+    const [Slot, _, useCount] = createPortal()
+    const Container = () => {
+      const rendersCount = useCount()
+      return (
+        <Slot
+          style={{ display: rendersCount === 0 ? "none" : "block" }}
+          id="slot"
+        />
+      )
+    }
     render(
       <PortalProvider>
         <div>
-          Awesome <Slot id="slot" />
+          Awesome <Container />
         </div>
       </PortalProvider>
     )
-    expect(document.querySelector("#slot")).toBeNull()
+    expect(document.querySelector("#slot")).toHaveStyle(`display: none;`)
   })
   test("Provider remount", () => {
     const [Slot, Render] = createPortal()

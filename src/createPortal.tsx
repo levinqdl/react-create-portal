@@ -1,10 +1,9 @@
 import React, {
-  CSSProperties,
   SFC,
   useContext,
-  useRef,
-  useLayoutEffect,
   useEffect,
+  useLayoutEffect,
+  useRef,
 } from "react"
 import ReactDOM from "react-dom"
 import SlotContext from "./SlotContext"
@@ -18,53 +17,40 @@ type SlotProps = React.DetailedHTMLProps<
   payload?: any
 }
 
-type ISlot = SFC<SlotProps>
+export type ISlot = React.FC<SlotProps>
 
-const createPortal: () => [ISlot, ISlotRender] = () => {
+const createPortal: () => [ISlot, ISlotRender, () => number] = () => {
   let key: string
 
-  const Slot = ({ payload, ...props }: SlotProps) => {
+  const Slot: ISlot = ({ payload, ...props }) => {
     const elem = useRef(null)
-    const container = useRef(null)
-    const { registerSlot: addSlot, setPayload, slots } = useContext(SlotContext)
+    const { registerSlot: addSlot, setPayload } = useContext(SlotContext)
     useLayoutEffect(() => {
-      elem.current = document.createElement("div")
       key = addSlot(elem.current)
     }, [])
     useEffect(() => {
       setPayload(key, payload)
     }, [payload])
-    useLayoutEffect(() => {
-      if (container.current && elem.current) {
-        container.current.appendChild(elem.current)
-      }
-    })
-    return (
-      (key && slots[key] && slots[key].renders && (
-        <div ref={container} {...props} />
-      )) ||
-      null
-    )
+    return <div ref={elem} {...props} />
   }
 
   const SlotRender: ISlotRender = ({ children }) => {
     const { slots, registerRender } = useContext(SlotContext)
     useEffect(() => registerRender(key), [])
-    return (
-      <SlotContext.Consumer>
-        {({ slots }) => {
-          const { element: elem, payload } = slots[key] || {}
-          return elem
-            ? ReactDOM.createPortal(
-                typeof children === "function" ? children(payload) : children,
-                elem
-              )
-            : null
-        }}
-      </SlotContext.Consumer>
-    )
+    const { element: elem, payload } = slots[key] || {}
+    return elem
+      ? ReactDOM.createPortal(
+          typeof children === "function" ? children(payload) : children,
+          elem
+        )
+      : null
   }
-  return [Slot, SlotRender]
+  const useCountRenders = () => {
+    const { slots } = useContext(SlotContext)
+    const slot = slots[key]
+    return slot ? slot.renders : 0
+  }
+  return [Slot, SlotRender, useCountRenders]
 }
 
 export default createPortal
