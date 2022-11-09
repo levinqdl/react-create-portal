@@ -1,7 +1,7 @@
 import React, { createRef, RefObject } from "react"
 import ReactDOM from "react-dom"
 import SlotContext from "./SlotContext"
-import { render, within, waitForElement } from "@testing-library/react"
+import { render, within, waitFor } from "@testing-library/react"
 
 const { Consumer } = SlotContext
 
@@ -33,7 +33,7 @@ describe("SlotContext", () => {
     )
     const { container, getByTestId, rerender } = render(<Container />)
     rerender(<Container />)
-    await waitForElement(() => within(getByTestId("slot")).getByText("hello"))
+    await waitFor(() => within(getByTestId("slot")).getByText("hello"))
     expect(container)
   })
 })
