@@ -1,5 +1,6 @@
 import React, {
-  SFC,
+  FC,
+  ReactNode,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -8,13 +9,14 @@ import React, {
 import ReactDOM from "react-dom"
 import SlotContext from "./SlotContext"
 
-type ISlotRender = SFC<{}>
+type ISlotRender = FC<{}>
 
 type SlotProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
   payload?: any
+  fallback?: ReactNode
 }
 
 export type ISlot = React.FC<SlotProps>
@@ -22,16 +24,20 @@ export type ISlot = React.FC<SlotProps>
 const createPortal: () => [ISlot, ISlotRender, () => number] = () => {
   let key: string
 
-  const Slot: ISlot = ({ payload, ...props }) => {
+  const Slot: ISlot = ({ payload, fallback, ...props }) => {
     const elem = useRef(null)
-    const { registerSlot: addSlot, setPayload } = useContext(SlotContext)
+    const { registerSlot: addSlot, setPayload, slots } = useContext(SlotContext)
     useLayoutEffect(() => {
       key = addSlot(elem.current)
     }, [])
     useEffect(() => {
       setPayload(key, payload)
     }, [payload])
-    return <div ref={elem} {...props} />
+    return (
+      <div ref={elem} {...props}>
+        {slots[key]?.renders ? null : fallback}
+      </div>
+    )
   }
 
   const SlotRender: ISlotRender = ({ children }) => {

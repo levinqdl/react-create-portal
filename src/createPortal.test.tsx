@@ -92,4 +92,19 @@ describe("Slot", () => {
     slotContainer = getByText("Awesome")
     within(slotContainer).getByText("Portal Layout")
   })
+  test("Slot fallback", () => {
+    const [Slot, _] = createPortal()
+    const Container = () => {
+      return <Slot id="slot" fallback={<span>Fallback</span>} />
+    }
+    const { getByText } = render(
+      <PortalProvider>
+        <div>
+          Awesome <Container />
+        </div>
+      </PortalProvider>
+    )
+    const slotContainer = getByText("Awesome")
+    within(slotContainer).getByText("Fallback")
+  })
 })
