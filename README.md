@@ -32,6 +32,8 @@ yarn add react-create-portal
 
 ## Examples
 
+1. render different contents based on current route
+
 ```javascript
 // App.js
 import React from "react"
@@ -47,12 +49,50 @@ const App = () => (
     <div>
       Hello <Slot />!
     </div>
-    <Render>World</Render>
+    <Router>
+      <Route path="/world">
+        <Render>World</Render>
+      </Route>
+      <Route path="/react">
+        <Render>React</Render>
+      </Route>
+    </Router>
   </PortalProvider>
 )
 
 /** output dom
- * <div>Hello World!</div> // World renders between "Hello" and "!"
+ * <div>Hello World!</div> // /world renders "Hello World!"
+ * <div>Hello React!</div> // /react renders "Hello React!"
+ */
+```
+
+2. fallback UI when no Render rendered
+
+```javascript
+// App.js
+const App = () => (
+  <PortalProvider>
+    <div>
+      Hello <Slot fallback="World" />!
+    </div>
+    <Router>
+      <Route path="/world">
+        <div>World Page</div>
+      </Route>
+      <Route path="/web">
+        <div>Web Page</div>
+      </Route>
+      <Route path="/react">
+        <Render>React</Render>
+      </Route>
+    </Router>
+  </PortalProvider>
+)
+
+/** output dom
+ * <div>Hello World!</div> // /world renders "Hello World!"
+ * <div>Hello World!</div> // /web renders "Hello World!"
+ * <div>Hello React!</div> // /react renders "Hello React!"
  */
 ```
 
