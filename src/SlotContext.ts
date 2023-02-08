@@ -13,6 +13,7 @@ interface SlotElements {
 export interface ISlotContext {
   slots: SlotElements
   registerSlot: (element: HTMLElement) => string
+  removeSlot: (key: string) => void
   registerRender: (key: string) => void
   setPayload: (key: string, payload: any) => void
 }
@@ -40,5 +41,8 @@ export default React.createContext<ISlotContext>({
       ...slots[key],
       payload,
     }
+  },
+  removeSlot: () => {
+    delete slots[defaultKey]
   },
 })

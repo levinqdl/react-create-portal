@@ -26,9 +26,15 @@ const createPortal: () => [ISlot, ISlotRender, () => number] = () => {
 
   const Slot: ISlot = ({ payload, fallback, ...props }) => {
     const elem = useRef(null)
-    const { registerSlot: addSlot, setPayload, slots } = useContext(SlotContext)
+    const { registerSlot: addSlot, removeSlot, setPayload, slots } = useContext(
+      SlotContext
+    )
     useLayoutEffect(() => {
       key = addSlot(elem.current)
+
+      return () => {
+        removeSlot(key)
+      }
     }, [])
     useEffect(() => {
       setPayload(key, payload)

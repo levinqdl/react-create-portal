@@ -15,9 +15,25 @@ class PortalProvider extends React.Component<{}, ISlotContext> {
     }))
     return key
   }
+  removeSlot = (key: string) => {
+    this.setState(({ slots }) => {
+      const newSlots = { ...slots }
+      delete newSlots[key]
+
+      return {
+        slots: {
+          ...newSlots,
+        },
+      }
+    })
+  }
   registerRender = (key: string) => {
     this.setState(({ slots }) => {
       const slot = slots[key]
+      if (!slot) {
+        return null
+      }
+
       return {
         slots: {
           ...slots,
@@ -28,6 +44,10 @@ class PortalProvider extends React.Component<{}, ISlotContext> {
     return () => {
       this.setState(({ slots }) => {
         const slot = slots[key]
+        if (!slot) {
+          return null
+        }
+
         return {
           slots: {
             ...slots,
@@ -51,6 +71,7 @@ class PortalProvider extends React.Component<{}, ISlotContext> {
   state: ISlotContext = {
     slots: {},
     registerSlot: this.registerSlot,
+    removeSlot: this.removeSlot,
     setPayload: this.setPayload,
     registerRender: this.registerRender,
   }
