@@ -1,5 +1,5 @@
-import React from "react"
-import { render, within } from "@testing-library/react"
+import React, { Suspense } from "react"
+import { render, waitFor, within } from "@testing-library/react"
 import PortalProvider from "./PortalProvider"
 import createPortal from "./createPortal"
 
@@ -92,19 +92,51 @@ describe("Slot", () => {
     slotContainer = getByText("Awesome")
     within(slotContainer).getByText("Portal Layout")
   })
-  test("Slot fallback", () => {
-    const [Slot, _] = createPortal()
-    const Container = () => {
-      return <Slot id="slot" fallback={<span>Fallback</span>} />
-    }
-    const { getByText } = render(
-      <PortalProvider>
-        <div>
-          Awesome <Container />
-        </div>
-      </PortalProvider>
-    )
-    const slotContainer = getByText("Awesome")
-    within(slotContainer).getByText("Fallback")
+  describe("Slot with fallback", () => {
+    test("html element fallback", () => {
+      const [Slot, _] = createPortal()
+      const Container = () => {
+        return <Slot id="slot" fallback={<span>Fallback</span>} />
+      }
+      const { getByText } = render(
+        <PortalProvider>
+          <div>
+            Awesome <Container />
+          </div>
+        </PortalProvider>
+      )
+      const slotContainer = getByText("Awesome")
+      within(slotContainer).getByText("Fallback")
+    })
+    test("text fallback with lazy render", async () => {
+      const [Slot, Render] = createPortal()
+      const Container = () => {
+        return <Slot id="slot" fallback="Fallback" />
+      }
+      const LazyRender = React.lazy(
+        () =>
+          new Promise<{ default: React.FC<{}> }>(resolve => {
+            setTimeout(() => resolve({ default: Render }), 0)
+          })
+      )
+      const { getByText } = render(
+        <PortalProvider>
+          <div>
+            Awesome <Container />
+          </div>
+          <Suspense fallback={null}>
+            <LazyRender>Render</LazyRender>
+          </Suspense>
+        </PortalProvider>
+      )
+      const slotContainer = getByText("Awesome")
+      within(slotContainer).getByText("Fallback")
+      await waitFor(() => {
+        expect(
+          within(slotContainer).queryByText("Fallback")
+        ).not.toBeInTheDocument()
+        within(slotContainer).getByText("Render")
+      })
+    })
   })
 })

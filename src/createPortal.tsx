@@ -41,7 +41,7 @@ const createPortal: () => [ISlot, ISlotRender, () => number] = () => {
     }, [payload])
     return (
       <div ref={elem} {...props}>
-        {slots[key]?.renders ? null : fallback}
+        {slots[key]?.renders ? null : <>{fallback}</>}
       </div>
     )
   }
