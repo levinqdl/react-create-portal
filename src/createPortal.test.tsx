@@ -9,13 +9,13 @@ describe("Slot", () => {
     const { getByText } = render(
       <PortalProvider>
         <div>
-          Awesome <Slot />
+          Awesome <Slot>React </Slot>
         </div>
         <Render>Portal Layout</Render>
       </PortalProvider>
     )
     const slotContainer = getByText("Awesome")
-    within(slotContainer).getByText("Portal Layout")
+    within(slotContainer).getByText("React Portal Layout")
   })
   it("reveive style & className", () => {
     const [Slot, Render] = createPortal()

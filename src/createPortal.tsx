@@ -24,7 +24,7 @@ export type ISlot = React.FC<SlotProps>
 const createPortal: () => [ISlot, ISlotRender, () => number] = () => {
   let key: string
 
-  const Slot: ISlot = ({ payload, fallback, ...props }) => {
+  const Slot: ISlot = ({ payload, fallback, children, ...props }) => {
     const elem = useRef(null)
     const { registerSlot: addSlot, removeSlot, setPayload, slots } = useContext(
       SlotContext
@@ -41,7 +41,7 @@ const createPortal: () => [ISlot, ISlotRender, () => number] = () => {
     }, [payload])
     return (
       <div ref={elem} {...props}>
-        {slots[key]?.renders ? null : <>{fallback}</>}
+        {children ?? (slots[key]?.renders ? null : <>{fallback}</>)}
       </div>
     )
   }
